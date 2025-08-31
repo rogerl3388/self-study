@@ -1,0 +1,4 @@
+CATS (CS61A Autocorrected Typing Software)
+
+This project is creating the logic for a typing autograder game
+- The only changes by me are in the file cats.py
