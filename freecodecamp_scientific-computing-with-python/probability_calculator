@@ -1,0 +1,41 @@
+# Determines the probability of drawing a certain number of colored balls from a hat
+# A hat may be defined with line such as hat1 = Hat(red=5, orange=4, black=1, blue=0, pink=2, striped=9)
+
+import copy, random
+from collections import Counter
+
+class Hat:
+    def __init__(self, **kwargs):
+        self.contents = dict_to_list(kwargs)
+
+    def draw(self, number):
+        drawn_list = list()
+        start_list = copy.deepcopy(self.contents)
+        drawn_number = 0
+        while drawn_number < number:
+            drawn_number += 1
+            if len(self.contents) == 0:
+                break
+            index = random.randrange(len(self.contents))
+            drawn_list.append(self.contents.pop(index))
+        return drawn_list
+
+def experiment(hat, expected_balls: dict, num_balls_drawn, num_experiments):
+    success_counter = 0
+    run_counter = 0
+    expected_list = Counter(expected_balls)
+    while run_counter < num_experiments:
+        run_counter += 1
+        temp_hat = copy.deepcopy(hat)
+        drawn_list = Counter(temp_hat.draw(num_balls_drawn))
+        if expected_list & drawn_list == expected_list:
+            success_counter += 1
+    return success_counter/num_experiments
+
+def dict_to_list(input_dict):
+    output_list = list()
+    for each_color in input_dict:
+        while input_dict[each_color] > 0:
+            output_list.append(each_color)
+            input_dict[each_color] -= 1
+    return output_list
