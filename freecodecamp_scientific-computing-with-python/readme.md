@@ -1,0 +1,1 @@
+These are the projects that were written for the legacy course https://www.freecodecamp.org/learn/scientific-computing-with-python/
